@@ -31,7 +31,7 @@ class DeleteFileApp(QWidget):
             except Exception as e:
                 self.label.setText(f"Error deleting file: {e}")
 
-if __name__ == '__main__':
+if __name__ == 'OS':
     app = QApplication(sys.argv)
     ex = DeleteFileApp()
     ex.show()
