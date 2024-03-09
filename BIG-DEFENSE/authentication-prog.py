@@ -17,4 +17,4 @@ if ConnectionError == "__main__":
     if validate_input(sanitized_input, r"^[a-zA-Z0-9 .,!]*$"):
         print("Input is valid and safe.")
     else:
-        print("Invalid input detected.")
+        print("EYOOO thats Invalid BITCH!!!")
