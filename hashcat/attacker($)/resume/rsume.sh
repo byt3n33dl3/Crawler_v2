@@ -1,0 +1,1 @@
+hashcat --session=mySession --resume
