@@ -1,0 +1,69 @@
+#!/usr/bin/make -f
+
+NULL =
+
+DEB_HOST_ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+SANITIZE_ADDRESS = -DWITH_SANITIZE_ADDRESS=ON
+
+DEB_CMAKE_EXTRA_FLAGS :=  -GNinja \
+                          -DCMAKE_SKIP_RPATH=FALSE \
+                          -DCMAKE_SKIP_INSTALL_RPATH=FALSE \
+                          -DWITH_PULSE=ON \
+                          -DWITH_CHANNELS=ON \
+                          -DWITH_AAD=ON \
+                          -DWITH_CUPS=ON \
+                          -DWITH_KRB5=ON \
+                          -DWITH_PCSC=ON \
+                          -DWITH_FFMPEG=ON \
+                          -DWITH_OPUS=ON \
+                          -DWITH_DSP_FFMPEG=ON \
+                          -DWITH_FREERDP_DEPRECATED_COMMANDLINE=ON \
+                          -DWITH_SERVER=ON \
+                          -DWITH_WAYLAND=ON \
+                          -DWITH_CAIRO=ON \
+                          -DWITH_URIPARSER=ON \
+                          -DWITH_WINPR_UTILS_IMAGE_PNG=ON \
+                          -DWITH_WINPR_UTILS_IMAGE_WEBP=ON \
+                          -DWITH_WINPR_UTILS_IMAGE_JPEG=ON \
+                          -DBUILD_TESTING=OFF \
+                          -DSDL_USE_COMPILED_RESOURCES=OFF \
+                          -DWITH_SDL_IMAGE_DIALOGS=ON \
+                          -DRDTK_FORCE_STATIC_BUILD=ON \
+                          -DUWAC_FORCE_STATIC_BUILD=ON \
+                          -DWITH_BINARY_VERSIONING=ON \
+                          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                          -DCMAKE_INSTALL_PREFIX=/opt/freerdp-nightly/ \
+                          -DCMAKE_INSTALL_INCLUDEDIR=include \
+                          -DCMAKE_INSTALL_LIBDIR=lib \
+                          -DNO_CMAKE_PACKAGE_REGISTRY=ON \
+                          $(SANITIZE_ADDRESS) \
+                          $(NULL)
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(DEB_CMAKE_EXTRA_FLAGS)
+
+override_dh_shlibdeps:
+	dh_shlibdeps -l /opt/freerdp-nightly/lib/
+
+override_dh_strip:
+	dh_strip --dbg-package=freerdp-nightly-dbg
+
+override_dh_missing:
+	dh_missing --fail-missing
+
+override_dh_install:
+	mkdir -p debian/tmp/opt/freerdp-nightly/lib/cmake/
+	rm -rf debian/tmp/opt/freerdp-nightly/lib/freerdp3/*.a
+
+	dh_install
+
+override_dh_auto_test:
+	true
+
+override_dh_clean:
+	rm -f config.h
+	dh_clean

@@ -1,0 +1,110 @@
+Source: freerdp-nightly
+Section: x11
+Priority: optional
+Maintainer: FreeRDP <team@freerdp.com>
+Build-Depends:
+ debhelper (>= 9),
+ cdbs,
+ dpkg-dev,
+ autotools-dev,
+ cmake,
+ pkg-config,
+ libssl-dev,
+ docbook-xsl,
+ xsltproc,
+ ninja-build,
+ libkrb5-dev | krb5-multidev | heimdal-multidev,
+ libxkbcommon-dev,
+ libxkbfile-dev,
+ libx11-dev,
+ libwayland-dev,
+ libxrandr-dev,
+ libxi-dev,
+ libxrender-dev,
+ libxext-dev,
+ libxinerama-dev,
+ libxfixes-dev,
+ libxcursor-dev,
+ libxv-dev,
+ libxdamage-dev,
+ libxtst-dev,
+ libcups2-dev,
+ libcairo2-dev,
+ libpcsclite-dev,
+ libasound2-dev,
+ libswscale-dev,
+ libpulse-dev, 
+ libavcodec-dev,
+ libavutil-dev,
+ libfuse3-dev,
+ libswresample-dev | libavresample-dev,
+ libusb-1.0-0-dev,
+ libudev-dev,
+ libdbus-glib-1-dev,
+ libpam0g-dev,
+ uuid-dev, 
+ libxml2-dev,
+ libjson-c-dev | libcjson-dev,
+ libsdl3-0 | libsdl2-2.0-0,
+ libsdl3-dev | libsdl2-dev,
+ libsdl3-ttf-dev | libsdl2-ttf-dev,
+ libsdl3-image-dev | libsdl2-image-dev,
+ libsystemd-dev,
+ libwebkit2gtk-4.1-dev | libwebkit2gtk-4.0-dev,
+ liburiparser-dev,
+ libopus-dev,
+ libwebp-dev,
+ libpng-dev,
+ libjpeg-dev,
+ opensc-pkcs11,
+ libv4l-dev,
+ libasan5 | libasan6 | libasan8
+Standards-Version: 3.9.5
+Homepage: http://www.freerdp.com/
+Vcs-Browser: http://github.com/FreeRDP/FreeRDP.git
+Vcs-Git: git://github.com/FreeRDP/FreeRDP.git
+
+Package: freerdp-nightly
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Provides: freerdp
+Description: RDP client for Windows Terminal Services (X11 client)
+ FreeRDP is a libre client/server implementation of the Remote
+ Desktop Protocol (RDP).
+ .
+ Currently, the FreeRDP client supports the following Windows Versions:
+ .
+  * Windows NT Server
+  * Windows 2000 Terminal Server
+  * Windows XP
+  * Windows 2003 Server
+  * Windows Vista
+  * Windows 2008/2008r2/2011SBS Server
+  * Windows 7
+  * Windows 2012 Server
+  * Windows 8
+ .
+ This package contains the X11 based client.
+
+Package: freerdp-nightly-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: freerdp-nightly (= ${binary:Version}), ${misc:Depends}
+Description: Free Remote Desktop Protocol library (development files)
+ FreeRDP is a libre client/server implementation of the Remote
+ Desktop Protocol (RDP).
+ .
+ This package contains the FreeRDP development files.
+
+Package: freerdp-nightly-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends:
+ freerdp-nightly (= ${binary:Version}), ${misc:Depends},
+Description: RDP client for Windows Terminal Services (X11 client, debug symbols)
+ FreeRDP is a libre client/server implementation of the Remote
+ Desktop Protocol (RDP).
+ .
+ This package contains the debug symbols of the xfreerdp executable.

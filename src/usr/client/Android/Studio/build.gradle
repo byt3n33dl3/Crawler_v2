@@ -1,0 +1,52 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+Properties releaseProperties = new Properties()
+File file = new File('release.properties')
+if (file.canRead()) {
+    releaseProperties.load(new FileInputStream(file))
+}
+   
+if (!hasProperty('RELEASE_STORE_FILE')) {
+    RELEASE_STORE_FILE=releaseProperties.get('RELEASE_STORE_FILE', '~/.android/debug.keystore')
+}
+if (!hasProperty('RELEASE_KEY_ALIAS')) {
+    RELEASE_KEY_ALIAS=releaseProperties.get('RELEASE_KEY_ALIAS', 'androiddebugkey')
+}
+if (!hasProperty('RELEASE_KEY_PASSWORD')) {
+    RELEASE_KEY_PASSWORD=releaseProperties.get('RELEASE_KEY_PASSWORD', 'android')
+}
+if (!hasProperty('RELEASE_STORE_PASSWORD')) {
+    RELEASE_STORE_PASSWORD=releaseProperties.get('RELEASE_STORE_PASSWORD', 'android')
+}
+
+ext {
+    compileApi = releaseProperties.get('COMPILE_API', 31)
+    targetApi = releaseProperties.get('TARGET_API', 31)
+    minApi = releaseProperties.get('MIN_API', 23)
+    toolsVersion = releaseProperties.get('TOOLS_VERSION', '31.0.0')
+
+    println '----------------- Project configuration -------------------'
+    println 'RELEASE_STORE_FILE: ' + RELEASE_STORE_FILE
+    println 'RELEASE_KEY_ALIAS:  ' + RELEASE_KEY_ALIAS
+    println 'compile API:        ' + compileApi
+    println 'target API:         ' + targetApi
+    println 'min API:            ' + minApi
+    println 'tools version:      ' + toolsVersion
+    println '-----------------------------------------------------------'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+    }
+}

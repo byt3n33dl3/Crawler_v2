@@ -1,0 +1,76 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion = rootProject.ext.compileApi
+    buildToolsVersion = rootProject.ext.toolsVersion
+
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libfreerdp3.so'
+        pickFirst 'lib/armeabi-v7a/libfreerdp3.so'
+        pickFirst 'lib/x86/libfreerdp3.so'
+        pickFirst 'lib/x86_64/libfreerdp3.so'
+
+        pickFirst 'lib/arm64-v8a/libfreerdp-client3.so'
+        pickFirst 'lib/armeabi-v7a/libfreerdp-client3.so'
+        pickFirst 'lib/x86/libfreerdp-client3.so'
+        pickFirst 'lib/x86_64/libfreerdp-client3.so'
+
+        pickFirst 'lib/arm64-v8a/libwinpr3.so'
+        pickFirst 'lib/armeabi-v7a/libwinpr3.so'
+        pickFirst 'lib/x86/libwinpr3.so'
+        pickFirst 'lib/x86_64/libwinpr3.so'
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minApi
+        targetSdkVersion rootProject.ext.targetApi
+        vectorDrawables.useSupportLibrary = true
+
+        ndk {
+            File jniLibsDirectory = new File(project.projectDir, "src/main/jniLibs")
+            ArrayList<String> abiFiltersList = new ArrayList<String>();
+            if (new File(jniLibsDirectory, "arm64-v8a/libfreerdp3.so").exists())
+                abiFiltersList.add("arm64-v8a")
+            if (new File(jniLibsDirectory, "armeabi-v7a/libfreerdp3.so").exists())
+                abiFiltersList.add("armeabi-v7a")
+            if (new File(jniLibsDirectory, "x86_64/libfreerdp3.so").exists())
+                abiFiltersList.add("x86_64")
+            if (new File(jniLibsDirectory, "x86/libfreerdp3.so").exists())
+                abiFiltersList.add("x86")
+            
+            abiFilters = abiFiltersList
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DWITH_CLIENT_CHANNELS=ON"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+        debug {
+            jniDebuggable true
+            renderscriptDebuggable true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:support-vector-drawable:28.0.0'
+}

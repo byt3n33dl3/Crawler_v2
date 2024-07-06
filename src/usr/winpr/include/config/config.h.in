@@ -1,0 +1,48 @@
+#ifndef WINPR_CONFIG_H
+#define WINPR_CONFIG_H
+
+/* Include files */
+#cmakedefine WINPR_HAVE_FCNTL_H
+#cmakedefine WINPR_HAVE_UNISTD_H
+#cmakedefine WINPR_HAVE_INTTYPES_H
+#cmakedefine WINPR_HAVE_STDBOOL_H
+#cmakedefine WINPR_HAVE_AIO_H
+#cmakedefine WINPR_HAVE_SYS_FILIO_H
+#cmakedefine WINPR_HAVE_SYS_SELECT_H
+#cmakedefine WINPR_HAVE_SYS_SOCKIO_H
+#cmakedefine WINPR_HAVE_SYS_EVENTFD_H
+#cmakedefine WINPR_HAVE_SYS_TIMERFD_H
+#cmakedefine WINPR_HAVE_TM_GMTOFF
+#cmakedefine WINPR_HAVE_AIO_H
+#cmakedefine WINPR_HAVE_POLL_H
+#cmakedefine WINPR_HAVE_SYSLOG_H
+#cmakedefine WINPR_HAVE_JOURNALD_H
+#cmakedefine WINPR_HAVE_PTHREAD_MUTEX_TIMEDLOCK
+#cmakedefine WINPR_HAVE_EXECINFO_H
+#cmakedefine WINPR_HAVE_GETLOGIN_R
+#cmakedefine WINPR_HAVE_GETPWUID_R
+#cmakedefine WINPR_HAVE_STRNDUP
+#cmakedefine WINPR_HAVE_UNWIND_H
+#cmakedefine WINPR_WITH_PNG
+
+#cmakedefine WINPR_HAVE_STRERROR_R
+
+#cmakedefine WITH_EVENTFD_READ_WRITE
+
+#cmakedefine WITH_NATIVE_SSPI
+#cmakedefine WITH_INTERNAL_RC4
+#cmakedefine WITH_INTERNAL_MD4
+#cmakedefine WITH_INTERNAL_MD5
+
+#cmakedefine WITH_WINPR_JSON
+
+#cmakedefine WITH_DEBUG_NTLM
+#cmakedefine WITH_DEBUG_THREADS
+#cmakedefine WITH_DEBUG_EVENTS
+#cmakedefine WITH_DEBUG_MUTEX
+
+#cmakedefine WINPR_UTILS_IMAGE_WEBP
+#cmakedefine WINPR_UTILS_IMAGE_PNG
+#cmakedefine WINPR_UTILS_IMAGE_JPEG
+
+#endif /* WINPR_CONFIG_H */
